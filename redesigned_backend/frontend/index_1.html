@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPI Unit Outline Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<section id="loginScreen" class="screen active">
+  <div class="auth-screen">
+    <div class="auth-card">
+      <div class="auth-logo"><img src="data:image/jpeg;base64,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" alt="SPI logo"></div>
+      <h1>Unit Outline Management</h1>
+      <p>Sign in to access your enrolled courses and unit outlines.</p>
+      <div id="loginError" class="auth-error"></div>
+      <a class="btn btn-primary" style="width:100%; display:flex; align-items:center; justify-content:center; text-decoration:none;" href="/login">
+        Sign in with Microsoft
+      </a>
+      <div id="devLoginPanel" style="display:none; margin-top:20px; padding-top:18px; border-top:1px dashed var(--border);">
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">
+          Dev mode — Microsoft login isn't configured yet
+        </p>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <a class="btn btn-outline" href="/dev-login/admin">Continue as Administrator</a>
+          <a class="btn btn-outline" href="/dev-login/course_coord">Continue as Course Coordinator</a>
+          <a class="btn btn-outline" href="/dev-login/unit_coord">Continue as Unit Coordinator</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD SCREEN -->
+<section id="dashboardScreen" class="screen">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><div class="brand-mark"><img src="data:image/jpeg;base64,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" alt="SPI logo"></div><span>Unit Outline Management</span></div>
+      <div class="user-actions">
+        <span id="userRolePill" class="user-pill" style="background:#0f172a;color:#fff;"></span>
+        <span id="userPill" class="user-pill"></span>
+        <button class="btn btn-warning" onclick="logoutUser()">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="dashboard-wrap">
+    <div class="dashboard-head">
+      <div>
+        <h1>My Courses</h1>
+        <p id="dashboardSubtitle">Courses enrolled by the logged-in user.</p>
+      </div>
+      <div class="dashboard-actions" id="dashboardActions">
+        <button class="btn btn-outline" id="changeRequestsBtn" onclick="openChangeRequestsScreen()">Change Requests <span id="crNavBadge" class="badge" style="margin-left:4px;">0</span></button>
+        <button class="btn btn-success" id="addCourseBtn" onclick="openAddCourseModal()">Add Course</button>
+        <label class="btn btn-primary import-label" id="importLabel">
+          Import JSON
+          <input id="importFile" type="file" accept=".json,application/json" hidden onchange="importCourseData(this.files[0])">
+        </label>
+        <button class="btn btn-primary" onclick="exportAllCourses()">Export All</button>
+      </div>
+    </div>
+    <div id="courseGrid" class="course-grid"></div>
+
+    <!-- ==========================================================
+         BACKEND DEMO PANEL
+         Shows units fetched from the Python backend (unit.py via
+         server.py). This is the frontend/backend round trip.
+         ========================================================== -->
+    <section class="backend-panel">
+      <div class="backend-panel-head">
+        <div>
+          <h2>Units from Python backend</h2>
+          <p id="backendStatus" class="backend-status">Not loaded yet.</p>
+        </div>
+        <button class="btn btn-outline" onclick="loadUnitsFromBackend()">Reload from backend</button>
+      </div>
+      <table class="backend-table">
+        <thead>
+          <tr><th>unit_code</th><th>unit_name</th></tr>
+        </thead>
+        <tbody id="backendUnitsBody"></tbody>
+      </table>
+    </section>
+  </main>
+</section>
+
+<!-- WORKFLOW TEAM SCREEN -->
+<section id="changeRequestsScreen" class="screen">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><div class="brand-mark"><img src="data:image/jpeg;base64,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" alt="SPI logo"></div><span>Unit Outline Management</span></div>
+      <div class="user-actions">
+        <span id="crScreenUserPill" class="user-pill"></span>
+        <button class="btn btn-outline" onclick="goToHomeScreen()">Back to Dashboard</button>
+        <button class="btn btn-warning" onclick="logoutUser()">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="dashboard-wrap">
+    <div class="dashboard-head">
+      <div>
+        <h1>Change Requests</h1>
+        <p>
+          Requests submitted by Course & Unit Coordinators. The actual review and change is handled
+          by the backend workflow system — this view reflects their status, and lets an Administrator
+          open the unit outline if a change needs applying here in the meantime.
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>Pending Requests</h2>
+        <span id="crPendingCount" class="badge">0</span>
+      </div>
+      <div id="crPendingList"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>Recently Resolved</h2>
+      </div>
+      <div id="crReviewedList"></div>
+    </div>
+  </main>
+</section>
+
+<!-- ADD COURSE MODAL -->
+<div id="courseModal" class="modal-backdrop">
+  <div class="modal">
+    <h2 id="courseModalTitle">Add Course</h2>
+    <div class="form-grid">
+      <div>
+        <label for="newCode">Course Code</label>
+        <input id="newCode" placeholder="e.g. CS101">
+      </div>
+      <div>
+        <label for="newSemester">Semester</label>
+        <input id="newSemester" placeholder="e.g. Semester 2, 2026">
+      </div>
+      <div>
+        <label for="newStartDate">Start Date</label>
+        <input id="newStartDate" type="date">
+      </div>
+      <div class="full">
+        <label for="newName">Course Name</label>
+        <input id="newName" placeholder="e.g. Software Engineering">
+      </div>
+      <div class="full">
+        <label for="newDescription">Description</label>
+        <textarea id="newDescription" rows="3" placeholder="Short course description"></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-warning" onclick="closeAddCourseModal()">Cancel</button>
+      <button class="btn btn-success" id="courseModalSubmitBtn" onclick="submitAddCourse()">Add Course</button>
+    </div>
+  </div>
+</div>
+
+
+<div id="changeRequestModal" class="modal-backdrop">
+  <div class="modal">
+    <h2>Request a Change</h2>
+    <p style="color:var(--text-muted); font-size:13px; margin-bottom:16px;">
+      Use this if the change you need falls outside what you're able to edit directly
+      (e.g. a Unit Coordinator requesting a change to Assessment Weighting, which only
+      a Course Coordinator or Administrator can approve). You can queue up several
+      requests below and submit them all together.
+    </p>
+    <div class="form-grid">
+      <div class="full">
+        <label for="crSection">Section / Field</label>
+        <select id="crSection">
+        </select>
+      </div>
+      <div class="full">
+        <label for="crDetails">Requested Change</label>
+        <textarea id="crDetails" rows="3" placeholder="Describe exactly what should change..."></textarea>
+      </div>
+      <div class="full">
+        <label for="crReason">Reason (optional)</label>
+        <textarea id="crReason" rows="2" placeholder="Why is this change needed?"></textarea>
+      </div>
+      <div class="full">
+        <label for="crApproverEmail">Send approval email to</label>
+        <input id="crApproverEmail" type="email" placeholder="approver@spi.edu.au">
+      </div>
+      <div class="full">
+        <button type="button" class="btn btn-outline cr-add-btn" onclick="addChangeRequestToQueue()">Add to Request List</button>
+      </div>
+      <div class="full">
+        <div id="crQueueList" class="cr-queue-list"></div>
+        <div id="crQueueEmpty" class="cr-queue-empty">No changes queued yet — fill in the fields above and click "Add to Request List", or just describe one change and submit directly.</div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-warning" onclick="closeChangeRequestModal()">Cancel</button>
+      <button class="btn btn-success" id="crSubmitBtn" onclick="submitChangeRequest()">Submit Request</button>
+    </div>
+  </div>
+</div>
+
+<div id="unitScreen" class="screen">
+<header>
+    <div class="header-container">
+        <div class="logo-title-group">
+            <div class="logo-box"><img src="data:image/jpeg;base64,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" alt="SPI logo"></div>
+            <div class="org-info">
+                <h1 id="disp_organisation">Sydney Polytechnic Institute</h1>
+                <p>Unit Outline Management System</p>
+            </div>
+        </div>
+        <div class="role-selector">
+            <label>Signed in as:</label>
+            <span id="unitUserPill" class="badge" style="background:rgba(255,255,255,0.9);">—</span>
+        </div>
+    </div>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="javascript:void(0)" onclick="returnToDashboard()" style="color:var(--primary-light);">Back</a></li>
+        <li><a href="#unit-details">Unit Details</a></li>
+        <li><a href="#study-hours">Study Hours & Mode</a></li>
+        <li><a href="#prerequisites">Requirements</a></li>
+        <li><a href="#description">Description</a></li>
+        <li><a href="#outcomes">Learning Outcomes</a></li>
+        <li><a href="#assessment">Assessment Schedule</a></li>
+        <li><a href="#weekly">Weekly Schedule</a></li>
+        <li><a href="#resources">Resources & Governance</a></li>
+        <li><a href="#authority">Authority Panel</a></li>
+        <!-- Version History, blended into the nav bar (admin-only). Lists
+             Current + every previous saved version of this unit outline.
+             Clicking one shows the ENTIRE outline as it looked at that
+             point, with the field(s) that changed right after that
+             version highlighted — see previewVersion(). -->
+        <li id="versionNavItem" class="version-nav-item" style="display:none;">
+            <a href="javascript:void(0)" class="version-nav-trigger" onclick="toggleVersionDropdown(event)">
+                <span id="versionNavCurrentLabel">Version History</span> <span class="vni-caret">▾</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Version History dropdown panel. Lives outside the nav bar (which
+     scrolls/clips its contents horizontally) so it can float properly
+     over the page as a real dropdown, positioned under its nav trigger
+     by JS — see toggleVersionDropdown() / positionVersionSidePanel(). -->
+<div id="versionSidePanel" class="version-side-panel">
+    <div class="version-side-panel-head">Version History</div>
+    <div id="versionSideList" class="version-side-list"></div>
+</div>
+
+<div id="versionPreviewBanner" class="version-preview-banner" style="display:none;">
+  <div>
+    <strong id="versionPreviewTitle">Viewing a previous version</strong>
+    <span id="versionPreviewMeta" style="display:block; font-size:12px; margin-top:2px; opacity:.85;"></span>
+  </div>
+  <div style="display:flex; gap:8px; flex-shrink:0;">
+    <button class="btn btn-outline" style="background:#fff;" onclick="restoreVersionFromPreview()">Restore This Version</button>
+    <button class="btn btn-primary" onclick="showCurrentVersionView()">Return to Current Version</button>
+  </div>
+</div>
+
+<div class="container">
+
+    <div style="margin-bottom:16px;">
+        <button class="btn btn-primary" onclick="returnToDashboard()">Back</button>
+    </div>
+
+    <div class="permission-matrix" id="roleNotice">
+        <strong>Current Access Mode: <span id="currentRoleTitle">Unit Coordinator</span></strong>
+        <p id="currentRoleDesc" style="margin-top:4px;">You can edit Assessment Tasks (Descriptions, Due Dates), Weekly Activities, Response to Feedback, Prescribed Texts, and Suggested Readings.</p>
+    </div>
+
+    <!-- 1. UNIT DETAILS -->
+    <div class="card" id="unit-details">
+        <div class="card-header">
+            <h2>Basic Unit Information</h2>
+            <span class="badge">Common & Administrative Fields</span>
+        </div>
+        <div class="grid-3">
+            <div class="field-box">
+                <label>Organisation</label>
+                <input type="text" id="organisation" value="Sydney Polytechnic Institute" data-perm="admin">
+            </div>
+            <div class="field-box">
+                <label>Outline Title</label>
+                <input type="text" id="title" value="Unit Outline" data-perm="admin">
+            </div>
+            <div class="field-box">
+                <label>Unit Code</label>
+                <input type="text" id="unit_code" value="COM111" data-perm="admin">
+            </div>
+            <div class="field-box">
+                <label>Unit Name</label>
+                <input type="text" id="unit_name" value="Foundational Computing Skills" data-perm="admin">
+            </div>
+            <div class="field-box">
+                <label>Associated Award(s)</label>
+                <input type="text" id="associated_award" value="Bachelor of Computing" data-perm="admin">
+            </div>
+            <div class="field-box">
+                <label>Unit Type</label>
+                <select id="unit_type" data-perm="admin">
+                    <option value="core" selected>Core</option>
+                    <option value="elective">Elective</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="field-box">
+                <label>Credit Points</label>
+                <input type="number" id="credit_points" value="4" data-perm="admin">
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. STUDY HOURS & DELIVERY MODE -->
+    <div class="card" id="study-hours">
+        <div class="card-header">
+            <h2>Study Hours & Delivery Mode</h2>
+            <span class="badge">Calculated & Mode Options</span>
+        </div>
+        <div class="grid-3" style="margin-bottom: 20px;">
+            <div class="field-box">
+                <label>Timetabled Study Hours / Week</label>
+                <input type="number" id="timetabled_hours" value="4" oninput="calculateTotalHours()" data-perm="admin">
+            </div>
+            <div class="field-box">
+                <label>Personal Study Hours / Week</label>
+                <input type="number" id="personal_hours" value="6" oninput="calculateTotalHours()" data-perm="admin">
+            </div>
+            <div class="field-box" style="background:#F4F1EA; border-color:#E3D9C2;">
+                <label style="color:#8A6B22;">Total Study Hours / Week (Calculated)</label>
+                <div class="value" id="total_hours_disp" style="font-size:20px; color:var(--primary); margin-top:4px;">10 Hours</div>
+            </div>
+        </div>
+
+        <label style="font-weight:700; font-size:14px; margin-bottom:10px; display:block;">Delivery Mode & Attributes</label>
+        <div class="checkbox-grid">
+            <div class="checkbox-item">
+                <input type="checkbox" id="mode_f2f" checked data-perm="admin">
+                <label for="mode_f2f">Face-to-Face On Site</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="mode_online" data-perm="admin">
+                <label for="mode_online">Online / E-Learning</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="mode_intensive" data-perm="admin">
+                <label for="mode_intensive">Intensive Mode</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="mode_wil" data-perm="admin">
+                <label for="mode_wil">Work Integrated Learning (WIL)</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="mode_blended" checked data-perm="admin">
+                <label for="mode_blended">Mixed / Blended</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="mode_fulltime" checked data-perm="admin">
+                <label for="mode_fulltime">Full-time</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="mode_parttime" checked data-perm="admin">
+                <label for="mode_parttime">Part-time</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. REQUIREMENTS & DESCRIPTION -->
+    <div class="card" id="prerequisites">
+        <div class="card-header">
+            <h2>Prerequisites & Unit Description</h2>
+        </div>
+        <div class="grid-3" style="margin-bottom:20px;">
+            <div class="field-box">
+                <label>Pre-requisites</label>
+                <input type="text" id="prerequisites_val" value="None" data-perm="admin">
+            </div>
+            <div class="field-box">
+                <label>Assumed Knowledge</label>
+                <input type="text" id="assumed_knowledge" value="None" data-perm="admin">
+            </div>
+            <div class="field-box">
+                <label>Specialist Equipment Required</label>
+                <input type="text" id="specialist_equipment" value="Yes - Computer / Laptop" data-perm="admin">
+            </div>
+        </div>
+        <div class="field-box" id="description">
+            <label>Unit Description</label>
+            <textarea id="unit_description" rows="4" data-perm="admin">This unit introduces foundational concepts in computing skills, software design, modern web architectures, and practical application development. Students gain essential problem-solving abilities and practical software design skills required for industry alignment.</textarea>
+        </div>
+    </div>
+
+    <!-- 4. LEARNING OUTCOMES -->
+    <div class="card" id="outcomes">
+        <div class="card-header">
+            <h2>Learning Outcomes (LO1 - LO8)</h2>
+            <span class="badge">Editable by Course Coord & Admin</span>
+        </div>
+        <div class="lo-list">
+            <div class="lo-item">
+                <span class="lo-badge">LO1</span>
+                <div class="lo-content">
+                    <input type="text" id="lo1" value="Demonstrate basic understanding of computing architecture and operating principles." data-perm="course_coord">
+                </div>
+            </div>
+            <div class="lo-item">
+                <span class="lo-badge">LO2</span>
+                <div class="lo-content">
+                    <input type="text" id="lo2" value="Develop structured web applications using standard languages and protocols." data-perm="course_coord">
+                </div>
+            </div>
+            <div class="lo-item">
+                <span class="lo-badge">LO3</span>
+                <div class="lo-content">
+                    <input type="text" id="lo3" value="Apply database concepts to design and query data structures effectively." data-perm="course_coord">
+                </div>
+            </div>
+            <div class="lo-item">
+                <span class="lo-badge">LO4</span>
+                <div class="lo-content">
+                    <input type="text" id="lo4" value="Analyze problem specifications and design appropriate software solutions." data-perm="course_coord">
+                </div>
+            </div>
+            <div class="lo-item">
+                <span class="lo-badge">LO5</span>
+                <div class="lo-content">
+                    <input type="text" id="lo5" value="Implement fundamental security practices and ethical considerations in computing." data-perm="course_coord">
+                </div>
+            </div>
+            <div class="lo-item">
+                <span class="lo-badge">LO6</span>
+                <div class="lo-content">
+                    <input type="text" id="lo6" value="Collaborate in software projects using modern version control tools." data-perm="course_coord">
+                </div>
+            </div>
+            <div class="lo-item">
+                <span class="lo-badge">LO7</span>
+                <div class="lo-content">
+                    <input type="text" id="lo7" value="Test, debug, and document technical solutions systematically." data-perm="course_coord">
+                </div>
+            </div>
+            <div class="lo-item">
+                <span class="lo-badge">LO8</span>
+                <div class="lo-content">
+                    <input type="text" id="lo8" value="Evaluate emergent software tools and Artificial Intelligence technologies responsibly." data-perm="course_coord">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. ASSESSMENT SCHEDULE -->
+    <div class="card" id="assessment">
+        <div class="card-header">
+            <h2>Assessment Schedule (Tasks 1 - 5)</h2>
+            <span class="badge">Sum Must Equal 100%</span>
+        </div>
+        <div class="table-scroll">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 7%;">Task</th>
+                    <th style="width: 32%;">Description</th>
+                    <th style="width: 15%;">Due Date</th>
+                    <th style="width: 13%;">Weight (%)</th>
+                    <th style="width: 33%;">LO's Assessed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Task 1</strong></td>
+                    <td><textarea id="ass1_desc" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Online Quiz &amp; Foundations Test</textarea></td>
+                    <td><input type="text" id="ass1_due" value="Week 4" data-perm="unit_coord"></td>
+                    <td><input type="number" id="ass1_weight" value="20" oninput="checkAssessmentTotal()" data-perm="course_coord"></td>
+                    <td><input type="text" id="ass1_lo" value="LO1, LO2" data-perm="course_coord"></td>
+                </tr>
+                <tr>
+                    <td><strong>Task 2</strong></td>
+                    <td><textarea id="ass2_desc" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Practical Development Assignment 1</textarea></td>
+                    <td><input type="text" id="ass2_due" value="Week 6" data-perm="unit_coord"></td>
+                    <td><input type="number" id="ass2_weight" value="20" oninput="checkAssessmentTotal()" data-perm="course_coord"></td>
+                    <td><input type="text" id="ass2_lo" value="LO2, LO3" data-perm="course_coord"></td>
+                </tr>
+                <tr>
+                    <td><strong>Task 3</strong></td>
+                    <td><textarea id="ass3_desc" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Mid-Semester Project Prototype</textarea></td>
+                    <td><input type="text" id="ass3_due" value="Week 8" data-perm="unit_coord"></td>
+                    <td><input type="number" id="ass3_weight" value="20" oninput="checkAssessmentTotal()" data-perm="course_coord"></td>
+                    <td><input type="text" id="ass3_lo" value="LO4, LO5" data-perm="course_coord"></td>
+                </tr>
+                <tr>
+                    <td><strong>Task 4</strong></td>
+                    <td><textarea id="ass4_desc" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Group Software Implementation</textarea></td>
+                    <td><input type="text" id="ass4_due" value="Week 10" data-perm="unit_coord"></td>
+                    <td><input type="number" id="ass4_weight" value="20" oninput="checkAssessmentTotal()" data-perm="course_coord"></td>
+                    <td><input type="text" id="ass4_lo" value="LO6, LO7" data-perm="course_coord"></td>
+                </tr>
+                <tr>
+                    <td><strong>Task 5</strong></td>
+                    <td><textarea id="ass5_desc" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Final Comprehensive Examination</textarea></td>
+                    <td><input type="text" id="ass5_due" value="Exam Week" data-perm="unit_coord"></td>
+                    <td><input type="number" id="ass5_weight" value="20" oninput="checkAssessmentTotal()" data-perm="course_coord"></td>
+                    <td><input type="text" id="ass5_lo" value="LO1, LO4, LO8" data-perm="course_coord"></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <div id="weightTotalBox" class="weight-total-box weight-pass">
+            <span>Sum of Assessment Tasks Weight:</span>
+            <span id="weightSumText">100% (Valid)</span>
+        </div>
+
+        <div class="field-box" style="margin-top:20px;">
+            <label>Assessment Summary / Strategy</label>
+            <textarea id="assessment_summary" rows="3" data-perm="unit_coord">The assessment strategy includes continuous formative quizzes and summative project milestones designed to progressively measure outcomes LO1 to LO8.</textarea>
+        </div>
+    </div>
+
+    <!-- 6. WEEKLY SCHEDULE -->
+    <div class="card" id="weekly">
+        <div class="card-header">
+            <h2>Weekly Activities & Schedule</h2>
+            <span class="badge">Editable by Unit Coordinator</span>
+        </div>
+        <div class="weekly-list">
+            <div class="weekly-item"><span class="week-badge">Week 1</span><div class="week-content"><textarea id="week1" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Introduction to Computing, Architecture &amp; Environment Setup</textarea></div></div>
+            <div class="weekly-item"><span class="week-badge">Week 2</span><div class="week-content"><textarea id="week2" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Web Foundations: HTML5, CSS Structure &amp; Modern Layouts</textarea></div></div>
+            <div class="weekly-item"><span class="week-badge">Week 3</span><div class="week-content"><textarea id="week3" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">JavaScript Essentials &amp; Programming Logic</textarea></div></div>
+            <div class="weekly-item"><span class="week-badge">Week 4</span><div class="week-content"><textarea id="week4" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">DOM Manipulation, Events &amp; Quiz 1 Review</textarea></div></div>
+            <div class="weekly-item"><span class="week-badge">Week 5</span><div class="week-content"><textarea id="week5" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Database Fundamentals &amp; Data Structures</textarea></div></div>
+            <div class="weekly-item"><span class="week-badge">Week 6</span><div class="week-content"><textarea id="week6" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Server-Side Concepts &amp; RESTful API Basics</textarea></div></div>
+            <div class="weekly-item"><span class="week-badge">Week 7</span><div class="week-content"><textarea id="week7" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Version Control (Git/GitHub) &amp; Collaborative Development</textarea></div></div>
+            <div class="weekly-item"><span class="week-badge">Week 8</span><div class="week-content"><textarea id="week8" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Software Security, Authentication &amp; Best Practices</textarea></div></div>
+            <div class="weekly-item"><span class="week-badge">Week 9</span><div class="week-content"><textarea id="week9" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Testing, Debugging &amp; Software Quality Assurance</textarea></div></div>
+            <div class="weekly-item"><span class="week-badge">Week 10</span><div class="week-content"><textarea id="week10" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Artificial Intelligence Tools in Modern Software Engineering</textarea></div></div>
+            <div class="weekly-item"><span class="week-badge">Weeks 11 & 12</span><div class="week-content"><textarea id="week11_12" data-perm="unit_coord" class="auto-grow" rows="1" oninput="autoGrowTextarea(this)">Project Presentations, Final Review &amp; Exam Preparation</textarea></div></div>
+        </div>
+    </div>
+
+    <!-- 7. RESOURCES & GOVERNANCE -->
+    <div class="card" id="resources">
+        <div class="card-header">
+            <h2>Resources, Feedback & Policies</h2>
+        </div>
+        <div class="grid-2" style="margin-bottom:20px;">
+            <div class="field-box">
+                <label>Prescribed Texts</label>
+                <textarea id="prescribed_texts" rows="3" data-perm="unit_coord">1. Silberschatz, A. (2021). Computer Science Concepts. Wiley.
+2. Duckett, J. (2020). Web Design & Development Fundamentals.</textarea>
+            </div>
+            <div class="field-box">
+                <label>Suggested Readings</label>
+                <textarea id="suggested_readings" rows="3" data-perm="unit_coord">1. Official MDN Web Docs (developer.mozilla.org)
+2. Clean Code: A Handbook of Agile Software Craftsmanship.</textarea>
+            </div>
+        </div>
+        <div class="field-box" style="margin-bottom:20px;">
+            <label>Response to Student Feedback</label>
+            <textarea id="feedback_response" rows="2" data-perm="unit_coord">Based on previous student feedback, practical laboratory exercises have been expanded with step-by-step video tutorials and additional interactive quizzes.</textarea>
+        </div>
+        <div class="grid-2">
+            <div class="field-box">
+                <label>Links to Institutional Policies</label>
+                <textarea id="links_policies" rows="2" data-perm="admin">SPI Academic Integrity Policy: https://www.spi.edu.au/policies/academic-integrity
+SPI Student Code of Conduct: https://www.spi.edu.au/policies/conduct</textarea>
+            </div>
+            <div class="field-box">
+                <label>Use of AI Tools Guidelines</label>
+                <textarea id="ai_tools" rows="2" data-perm="admin">Generative AI tools (e.g. ChatGPT, GitHub Copilot) may be used for learning assistance provided all AI-assisted content is explicitly cited according to SPI Guidelines.</textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. AUTHORITY & ACTION PANEL -->
+    <div class="card" id="authority" style="border-left: 6px solid var(--accent);">
+        <div class="card-header">
+            <h2>Authority Panel & Document Actions</h2>
+            <span class="badge">Approved by Academic Board</span>
+        </div>
+        <p style="font-size:14px; color:var(--text-muted); margin-bottom:15px;">Changes made to this outline must align with institutional permission rules. Modifications to core fields require Academic Board approval.</p>
+        <div class="buttons">
+            <button class="btn btn-success" id="saveOutlineBtn" onclick="saveChanges()">Save Outline Changes</button>
+            <button class="btn btn-primary" onclick="print_pdf()">Export / Print PDF</button>
+            <button class="btn btn-outline" id="requestChangeBtn" onclick="openChangeRequestModal()">Request a Change</button>
+            <button class="btn btn-warning" onclick="returnToDashboard()">Back</button>
+        </div>
+    </div>
+
+</div>
+
+
+<footer><p>© 2026 Sydney Polytechnic Institute (SPI) — Unit Management System</p></footer>
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+<script src="unit.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
