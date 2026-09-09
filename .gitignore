@@ -1,0 +1,12 @@
+# Real credentials — never commit this. Copy .env.example to .env instead.
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editor/OS cruft
+.vscode/
+.DS_Store

@@ -1,0 +1,6 @@
+Flask
+Flask-Mail
+python-dotenv
+msal
+mysql-connector-python
+python-docx
