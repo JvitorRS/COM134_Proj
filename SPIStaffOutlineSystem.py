@@ -74,8 +74,16 @@ def create_app() -> Flask:
     app.config["MAIL_SERVER"] = "smtp.gmail.com"
     app.config["MAIL_PORT"] = 587
     app.config["MAIL_USE_TLS"] = True
-    app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
-    app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
+    app.config["MAIL_USERNAME"] = (os.environ.get("MAIL_USERNAME") or "").strip()
+
+    # Whitespace is stripped from the App Password on purpose. Google
+    # displays them in four space-separated groups for readability
+    # ("abcd efgh ijkl mnop"), so copying one straight out of that dialog
+    # brings the spaces along — and SMTP then rejects the login with an
+    # authentication error that looks exactly like a wrong password.
+    # The spaces are formatting, not part of the secret, so drop them
+    # rather than making everyone debug it.
+    app.config["MAIL_PASSWORD"] = "".join((os.environ.get("MAIL_PASSWORD") or "").split())
 
     # Used for session signing if/when Flask sessions get used elsewhere;
     # the Microsoft-login session store in login.py doesn't need this,
